@@ -33,7 +33,7 @@ with col_controls:
     # --- Center Text ---
     with st.expander("Center Text"):
         center_text = st.text_input("Text in Center", placeholder="Your Company Name")
-        text_percent = st.slider("Text Size (% of QR width)", 5, 50, 10)
+        text_percent = st.slider("Text Size", 5, 50, 10)
         text_color = st.color_picker("Text Color", "#000000")
         text_bg_padding = st.slider("Background Padding", 0, 30, 5)
         show_text_bg = st.checkbox("Show Text Background", True)
@@ -54,7 +54,7 @@ with col_controls:
         else:
             cropped_image = None
 
-        logo_percent = st.slider("Logo Size (% of QR width)", 10, 40, 20)
+        logo_percent = st.slider("Logo Size", 10, 40, 20)
         round_logo = st.checkbox("Round Logo?", False)
 
     generate_btn = st.button("Generate QR Code")
