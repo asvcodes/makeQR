@@ -4,12 +4,12 @@ from PIL import Image
 import io
 
 # --- Page Config ---
-st.set_page_config(page_title="makeQRs", page_icon="🔗", layout="centered")
+st.set_page_config(page_title="makeQR", page_icon="🔗", layout="centered")
 
 # --- Header ---
 st.markdown(
     """
-    <h1 style='text-align: center; color: #2E86C1;'>🔗 QR Code Generator</h1>
+    <h1 style='text-align: center; color: #2E86C1;'> makeQRs </h1>
     <p style='text-align: center; color: gray;'>
         Enter any link or text below to generate a clean, downloadable QR Code instantly.
     </p>
