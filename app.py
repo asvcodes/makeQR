@@ -4,23 +4,23 @@ from PIL import Image
 import io
 
 # --- Page Config ---
-st.set_page_config(page_title="makeQR", page_icon="🔗", layout="centered")
+st.set_page_config(page_title="makeQRs", page_icon="🔗", layout="centered")
 
 # --- Header ---
 st.markdown(
     """
     <h1 style='text-align: center; color: #2E86C1;'>🔗 QR Code Generator</h1>
     <p style='text-align: center; color: gray;'>
-        Enter any link or text below and generate a downloadable QR Code instantly.
+        Enter any link or text below to generate a clean, downloadable QR Code instantly.
     </p>
     """,
     unsafe_allow_html=True
 )
 
 # --- Input Section ---
-link = st.text_input("Enter a URL or text:", value="https://www.example.com")
+link = st.text_input("Enter a URL or text:", placeholder="e.g., https://example.com")
 
-if link:
+if link.strip():
     # Generate QR code
     qr = qrcode.QRCode(
         version=1,
