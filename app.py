@@ -1,6 +1,6 @@
 import streamlit as st
 import qrcode
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 import io
 from streamlit_cropper import st_cropper
 
@@ -17,7 +17,7 @@ st.markdown(
 )
 
 # --- Layout ---
-col_controls, col_preview = st.columns([1, 1.2])
+col_controls, col_preview = st.columns([1.3, 1])  # give controls more width
 
 with col_controls:
     # --- User Input ---
@@ -29,14 +29,6 @@ with col_controls:
         back_color = st.color_picker("QR Background Color", "#FFFFFF")
         border = st.slider("Border Size", 1, 10, 3)
         qr_size = 600  # fixed resolution
-
-    # --- Center Text ---
-    with st.expander("Center Text"):
-        center_text = st.text_input("Text in Center", placeholder="Your Company Name")
-        text_percent = st.slider("Text Size", 5, 50, 10)
-        text_color = st.color_picker("Text Color", "#000000")
-        text_bg_padding = st.slider("Background Padding", 0, 30, 5)
-        show_text_bg = st.checkbox("Show Text Background", True)
 
     # --- Logo Options ---
     with st.expander("Logo"):
@@ -70,7 +62,6 @@ with col_preview:
 
 # --- QR Generation Function ---
 def generate_qr(link, fill_color, back_color, border,
-                center_text, text_percent, text_color, text_bg_padding, show_text_bg,
                 logo_img, logo_percent, round_logo, qr_size=600):
 
     # --- Create QR ---
@@ -98,31 +89,6 @@ def generate_qr(link, fill_color, back_color, border,
         pos = ((qr_size - logo.size[0]) // 2, (qr_size - logo.size[1]) // 2)
         img.paste(logo, pos, mask=logo)
 
-    # --- Add Center Text ---
-    if center_text.strip():
-        draw = ImageDraw.Draw(img)
-        try:
-            font_size = int(qr_size * text_percent / 100)
-            font = ImageFont.truetype("DejaVuSans-Bold.ttf", font_size)
-        except:
-            font = ImageFont.load_default()
-
-        bbox = draw.textbbox((0, 0), center_text, font=font)
-        text_w = bbox[2] - bbox[0]
-        text_h = bbox[3] - bbox[1]
-        text_pos = ((qr_size - text_w) // 2, (qr_size - text_h) // 2)
-
-        if show_text_bg:
-            rect_coords = [
-                text_pos[0] - text_bg_padding,
-                text_pos[1] - text_bg_padding,
-                text_pos[0] + text_w + text_bg_padding,
-                text_pos[1] + text_h + text_bg_padding
-            ]
-            draw.rectangle(rect_coords, fill=back_color)
-
-        draw.text(text_pos, center_text, fill=text_color, font=font)
-
     return img
 
 # --- Generate QR ---
@@ -131,7 +97,6 @@ if generate_btn:
         try:
             img = generate_qr(
                 link, fill_color, back_color, border,
-                center_text, text_percent, text_color, text_bg_padding, show_text_bg,
                 cropped_image, logo_percent, round_logo, qr_size
             )
             buf = io.BytesIO()
