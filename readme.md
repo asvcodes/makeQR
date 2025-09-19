@@ -1,6 +1,6 @@
 # makeQRs
 
-A simple, ad-free QR code generator with logo support.
+A simple, ad-free QR code generator with logo support, built using streamlit.
 
 **Live App:** https://makeqrs.streamlit.app/
 
@@ -28,4 +28,4 @@ Pillow
 streamlit-cropper
 ```
 
-Built by ASV
+Built by ASV. Moreover, this project is licensed under the MIT License – feel free to use and modify.
